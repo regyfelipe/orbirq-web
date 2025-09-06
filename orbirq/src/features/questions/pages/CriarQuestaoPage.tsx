@@ -62,6 +62,9 @@ interface QuestaoData {
   plano_disponibilidade: string[];
 }
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function CriarQuestaoPage() {
   const { usuario } = useAuth();
 
@@ -292,7 +295,7 @@ export default function CriarQuestaoPage() {
       console.log("Salvando questão:", dadosEnvio);
 
       // Fazer chamada da API
-      const response = await fetch("http://localhost:3000/questions", {
+      const response = await fetch(`${API_URL}/questions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

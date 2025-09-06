@@ -17,6 +17,10 @@ import {
   BarChart3
 } from "lucide-react"
 
+
+const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+
+
 interface Turma {
   id: string
   nome: string
@@ -350,7 +354,7 @@ export default function GerenciarTurmasPage() {
 
     try {
       // This would create a permanent invite link for the turma
-      const inviteLink = `http://localhost:5173/join-turma/${turmaParaAdicionar.id}`
+      const inviteLink = `${FRONTEND_URL}/join-turma/${turmaParaAdicionar.id}`
       alert(`Convite permanente criado!\nLink: ${inviteLink}`)
     } catch (error) {
       console.error("Erro ao criar convite:", error)

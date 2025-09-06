@@ -30,6 +30,9 @@ interface Invite {
   professorName?: string
 }
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function ProfessorInvitesPage() {
   const [invites, setInvites] = useState<Invite[]>([])
   const [loading, setLoading] = useState(true)
@@ -50,7 +53,7 @@ export default function ProfessorInvitesPage() {
 
       if (usuario && usuario.role === 'professor') {
         // Buscar convites reais do professor via API
-        const response = await fetch(`http://localhost:3000/invites/professor/${usuario.id}`)
+        const response = await fetch(`${API_URL}/invites/professor/${usuario.id}`)
         const invitesData = await response.json()
 
         if (response.ok) {
@@ -79,7 +82,7 @@ export default function ProfessorInvitesPage() {
       if (usuario && usuario.role === 'professor') {
         // Usar ID real do professor logado
         const professorId = usuario.id || '123' // Fallback para mock se não houver ID
-        setPermanentLink(`http://localhost:5173/invite/${professorId}`)
+        setPermanentLink(`${API_URL}:5173/invite/${professorId}`)
       } else {
         // Usuário não é professor ou não está logado
         console.warn('Usuário não autorizado para gerar links de convite')
@@ -104,7 +107,7 @@ export default function ProfessorInvitesPage() {
       const expiresInHours = expiresIn && expiresIn !== 'infinito' ? parseInt(expiresIn) : null
 
       // Fazer chamada real para a API
-      const response = await fetch('http://localhost:3000/invites', {
+      const response = await fetch(`${API_URL}/invites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

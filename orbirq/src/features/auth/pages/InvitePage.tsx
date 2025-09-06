@@ -24,6 +24,9 @@ interface InviteData {
   status: 'valid' | 'expired' | 'used' | 'invalid'
 }
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function InvitePage() {
   const { token } = useParams<{ token: string }>()
   const navigate = useNavigate()
@@ -43,7 +46,7 @@ export default function InvitePage() {
   const loadInviteData = async () => {
     try {
       // Fazer chamada real para a API
-      const response = await fetch(`http://localhost:3000/invites/${token}`)
+const response = await fetch(`${API_URL}/invites/${token}`);
       const data = await response.json()
 
       if (!response.ok) {

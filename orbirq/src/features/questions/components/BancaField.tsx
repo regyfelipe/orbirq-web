@@ -17,6 +17,10 @@ interface BancaFieldProps {
   updateQuestao: (field: 'banca', value: string) => void
 }
 
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function BancaField({ questao, updateQuestao }: BancaFieldProps) {
   const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState(questao.banca || '')
@@ -52,7 +56,7 @@ export default function BancaField({ questao, updateQuestao }: BancaFieldProps) 
 
     setLoading(true)
     try {
-      const response = await fetch(`http://localhost:3000/api/bancas?search=${encodeURIComponent(searchTerm)}`)
+      const response = await fetch(`${API_URL}/api/bancas?search=${encodeURIComponent(searchTerm)}`)
       if (response.ok) {
         const data = await response.json()
         setSuggestions(data)

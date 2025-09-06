@@ -20,6 +20,9 @@ interface GenericSearchFieldProps {
   required?: boolean
 }
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function GenericSearchField({
   label,
   fieldName,
@@ -63,7 +66,7 @@ export default function GenericSearchField({
 
     setLoading(true)
     try {
-      const response = await fetch(`http://localhost:3000/api/${apiEndpoint}?search=${encodeURIComponent(searchTerm)}`)
+      const response = await fetch(`${API_URL}/api/${apiEndpoint}?search=${encodeURIComponent(searchTerm)}`)
       if (response.ok) {
         const data = await response.json()
         setSuggestions(data)

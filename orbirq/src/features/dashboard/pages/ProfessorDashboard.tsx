@@ -22,6 +22,9 @@ import {
 } from "lucide-react"
 
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
 export default function ProfessorDashboard() {
   const navigate = useNavigate()
   const [data, setData] = useState<ProfessorDashboardData | null>(null)
@@ -78,7 +81,7 @@ export default function ProfessorDashboard() {
       const usuario = JSON.parse(localStorage.getItem("usuario") || "null")
 
       if (usuario && usuario.role === 'professor') {
-        const response = await fetch(`http://localhost:3000/invites/professor/${usuario.id}/students`, {
+        const response = await fetch(`${API_URL}/invites/professor/${usuario.id}/students`, {
           headers: {
             'Content-Type': 'application/json',
             // Adicionar token se disponível

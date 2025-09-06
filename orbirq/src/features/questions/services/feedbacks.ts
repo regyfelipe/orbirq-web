@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export interface NovoFeedback {
   alunoId: string;
@@ -16,6 +16,8 @@ export interface Feedback {
   criadoEm: string;
   respostas?: Feedback[];
 }
+
+
 
 export async function enviarFeedback(data: NovoFeedback) {
   const res = await fetch(`${API_URL}/feedbacks`, {
