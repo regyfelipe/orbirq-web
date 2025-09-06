@@ -21,18 +21,30 @@ import turmasRoutes from "./src/modules/turmas/routes/turmasRoutes.js";
 const app = express();
 
 // --- Middleware CORS ---
+// --- Middleware CORS ---
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // permitir requests sem origin (ex: Postman)
-      if (config.cors.origin.includes(origin)) {
+      const allowedOrigins = Array.isArray(config.cors.origin)
+        ? config.cors.origin
+        : [config.cors.origin];
+
+      console.log("🌍 Request origin:", origin);
+      console.log("✅ Allowed origins:", allowedOrigins);
+
+      // Permite chamadas sem `origin` (Postman, curl etc.)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
-      return callback(new Error("Not allowed by CORS"));
+
+      return callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     credentials: config.cors.credentials,
   })
 );
+
 
 app.use(express.json());
 

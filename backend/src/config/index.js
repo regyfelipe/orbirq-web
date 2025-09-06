@@ -19,7 +19,13 @@ const config = {
   },
 
   cors: {
-    origin: "*", // 🚨 Libera tudo (não recomendado para produção)
+    /**
+     * Aceita múltiplos domínios separados por vírgula no .env:
+     * CORS_ORIGIN=http://localhost:5173,https://orbirq-frontend.vercel.app
+     */
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+      : ["http://localhost:5173"],
     credentials: true,
   },
 };
